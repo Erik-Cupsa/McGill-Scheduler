@@ -1,0 +1,24 @@
+.page { 
+    width: 100%; 
+    height: 100%; 
+    position: absolute; 
+    background: linear-gradient(to bottom right, #1a0408 30%, #8c1d01 80%);
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+
+
+.container { 
+    width: 100%; 
+    will-change: contents; 
+    height: 100%; 
+    min-height: 566px; 
+    position: absolute; 
+    opacity: 0; 
+    top: 5%; 
+    margin: 0 auto; 
+    z-index: 1; 
+    transform-style: preserve-3d; 
+    animation: fadeIn 1s forwards; 
+    animation-delay: 1s; 
+}

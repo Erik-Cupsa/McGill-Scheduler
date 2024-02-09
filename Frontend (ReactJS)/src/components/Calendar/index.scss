@@ -1,0 +1,304 @@
+.calendar-page{
+  .text-zone{
+    position: absolute; 
+    align-content: center;
+    left: 10%; 
+    top: 30%; 
+    transform: translateY(-50%); 
+    max-height: 90%; 
+    display: absolute;
+    max-width: 80%;
+  }
+    overflow: auto;
+    h1{
+        color: #fff; 
+        font-size: 53px; 
+        margin: 0; 
+        font-weight: 400; 
+        cursor: pointer;
+    
+        &::before { 
+            color: #ffd700; 
+            font-size: 18px; 
+            position: absolute; 
+            margin-top: -40px; 
+            left: 15px; 
+            opacity: 0.6; 
+        }
+    
+        &::after { 
+            color: #ffd700; 
+            font-size: 18px; 
+            position: absolute; 
+            margin-top: 18px; 
+            left: 20px; 
+            animation: fadeIn 1s 1.7s backwards; 
+            opacity: 0.6; 
+        }
+    }
+    h2 { 
+      color: #fff;
+      animation: fadeIn 1s 1.8s backwards; 
+      font-weight: 400;
+  }
+  .table-container::-webkit-scrollbar {
+    width: 12px; 
+  }
+
+  .table-container::-webkit-scrollbar-thumb {
+    background-color: #fff; 
+    border-radius: 6px; 
+  }
+
+  .table-container::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .table-container {
+    animation: fadeIn 1s 1.8s backwards; 
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(#212121, #212121) padding-box,
+                linear-gradient(145deg, transparent 35%,#ff1a05, #fd9815) border-box;
+    border: 2px solid transparent;
+    overflow: auto;
+    max-height: 250px;
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #555; 
+        background-color: #333;
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #555;
+            text-align: left;
+            color: #ddd; 
+        }
+
+        th {
+            background-color: #222;
+            color: #fff; 
+        }
+
+        tr:nth-child(even) {
+            background-color: #444; 
+        }
+
+        tr:hover {
+            background-color: #666; 
+        }
+    }
+  }
+}
+button {
+    position: relative;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+    transition: filter 250ms;
+    user-select: none;
+    touch-action: manipulation;
+   }
+   .google{
+    max-width: 320px;
+    padding: 0.5rem 1.4rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+    align-items: center;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    gap: 0.75rem;
+    color: rgb(65, 63, 63);
+    background-color: #fff;
+    cursor: pointer;
+    transition: all .6s ease;
+    margin-left: 10px;
+    bottom: 3px;
+   }
+   .google svg {
+    height: 24px;
+  }
+  .google:hover {
+    transform: scale(1.02);
+  }
+   .shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: hsl(0deg 0% 0% / 0.25);
+    will-change: transform;
+    transform: translateY(2px);
+    transition: transform
+       600ms
+       cubic-bezier(.3, .7, .4, 1);
+   }
+   
+   .edge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(
+       to left,
+       hsl(340deg 100% 16%) 0%,
+       hsl(340deg 100% 32%) 8%,
+       hsl(340deg 100% 32%) 92%,
+       hsl(340deg 100% 16%) 100%
+     );
+   }
+   
+   .front {
+    display: block;
+    position: relative;
+    padding: 12px 27px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    color: white;
+    background: hsl(345deg 100% 47%);
+    will-change: transform;
+    transform: translateY(-4px);
+    transition: transform
+       600ms
+       cubic-bezier(.3, .7, .4, 1);
+   }
+   
+   button:hover {
+    filter: brightness(110%);
+   }
+   
+   button:hover .front {
+    transform: translateY(-6px);
+    transition: transform
+       250ms
+       cubic-bezier(.3, .7, .4, 1.5);
+   }
+   
+   button:active .front {
+    transform: translateY(-2px);
+    transition: transform 34ms;
+   }
+   
+   button:hover .shadow {
+    transform: translateY(4px);
+    transition: transform
+       250ms
+       cubic-bezier(.3, .7, .4, 1.5);
+   }
+   
+   button:active .shadow {
+    transform: translateY(1px);
+    transition: transform 34ms;
+   }
+   
+   button:focus:not(:focus-visible) {
+    outline: none;
+   }
+
+   .button {
+    margin-top: 500px;
+    margin-left: 130px;
+    --main-focus: #2d8cf0;
+    --font-color: #dedede;
+    --bg-color-sub: #222;
+    --bg-color: #323232;
+    --main-color: #dedede;
+    position: relative;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--main-color);
+    box-shadow: 4px 4px var(--main-color);
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .button, .button__icon, .button__text {
+    transition: all 0.3s;
+  }
+  
+  .button .button__text {
+    transform: translateX(21px);
+    color: var(--font-color);
+    font-weight: 600;
+  }
+  
+  .button .button__icon {
+    position: absolute;
+    transform: translateX(109px);
+    height: 100%;
+    width: 39px;
+    background-color: var(--bg-color-sub);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button .svg {
+    width: 20px;
+    fill: var(--main-color);
+  }
+  
+  .button:hover {
+    background: var(--bg-color);
+  }
+  
+  .button:hover .button__text {
+    color: transparent;
+  }
+  
+  .button:hover .button__icon {
+    width: 148px;
+    transform: translateX(0);
+  }
+  
+  .button:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px var(--main-color);
+  }
+
+
+@media screen and (max-width: 1150px){
+  .calendar-page{
+    .text-zone{
+      top:20%;
+      width: 80%;
+    }
+    h2{
+      font-size: 12px;
+    }
+    .table-container {
+      margin: 20px auto;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(#212121, #212121) padding-box,
+                  linear-gradient(145deg, transparent 35%,#ff1a05, #fd9815) border-box;
+      border: 2px solid transparent;
+      overflow: auto;
+      max-height: 250px;
+
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          border: 1px solid #555; 
+          background-color: #333;
+      }
+    }
+    .button{
+      margin-top:450px;
+    }
+  }
+}

@@ -27,7 +27,7 @@ const DataHandling = () => {
 
     if (className) {
       axios
-        .get(`https://mcgill-exams-26fa9ab0fe41.herokuapp.com/api/v1/exam?className=${encodeURIComponent(className)}`)
+        .get(`https://mcgillexams-5294e99e879f.herokuapp.com/api/v1/exam?className=${encodeURIComponent(className)}`)
         .then((response) => {
           setExamData(response.data);
           setLoading(false);
@@ -121,11 +121,11 @@ const DataHandling = () => {
                     <th>Exam Type</th>
                     <th>Exam Start Time</th>
                     <th>Exam End Time</th>
-                    {/* <th>Building</th>
+                    <th>Building</th>
                     <th>Room</th>
                     <th>Rows</th>
                     <th>Row Start</th>
-                    <th>Row End</th> */}
+                    <th>Row End</th>
                     <th>Actions</th>
                   </>
                 )}
@@ -142,11 +142,11 @@ const DataHandling = () => {
                       <td>{exam.exam_type}</td>
                       <td>{exam.exam_start_time}</td>
                       <td>{exam.exam_end_time}</td>
-                      {/* <td>{exam.building}</td>
+                      <td>{exam.building}</td>
                       <td>{exam.room}</td>
                       <td>{exam.rows}</td>
                       <td>{exam.rowStart}</td>
-                      <td>{exam.rowEnd}</td> */}
+                      <td>{exam.rowEnd}</td>
                     </>
                   )}
                   <td>

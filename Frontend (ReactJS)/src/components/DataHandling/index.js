@@ -15,7 +15,7 @@ const DataHandling = () => {
   const [addedExams, setAddedExams] = useState(new Set());
 
   useEffect(() => {
-    const storedCalendar = JSON.parse(localStorage.getItem('calendar')) || [];
+    const storedCalendar = JSON.parse(sessionStorage.getItem('calendar')) || [];
     setSelectedExams(storedCalendar);
 
     const params = new URLSearchParams(window.location.search);
@@ -75,7 +75,7 @@ const DataHandling = () => {
       setSelectedExams((prevSelectedExams) => {
         const updatedExams = [...prevSelectedExams, exam];
   
-        localStorage.setItem('calendar', JSON.stringify(updatedExams));
+        sessionStorage.setItem('calendar', JSON.stringify(updatedExams));
         setAddedExams((prevAddedExams) => new Set([...prevAddedExams, exam.examKey]));
   
         return updatedExams;

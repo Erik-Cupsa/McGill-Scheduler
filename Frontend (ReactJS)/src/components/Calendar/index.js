@@ -9,7 +9,7 @@ const Calendar = () => {
   const isMobileView = window.innerWidth <= 1150;
 
   useEffect(() => {
-    const storedCalendar = JSON.parse(localStorage.getItem('calendar')) || [];
+    const storedCalendar = JSON.parse(sessionStorage.getItem('calendar')) || [];
     setSelectedExams(storedCalendar);
 
     const timer = setTimeout(() => {
@@ -24,7 +24,7 @@ const Calendar = () => {
   const handleRemoveExam = (examKey) => {
     const updatedExams = selectedExams.filter((exam) => exam.examKey !== examKey);
     setSelectedExams(updatedExams);
-    localStorage.setItem('calendar', JSON.stringify(updatedExams));
+    sessionStorage.setItem('calendar', JSON.stringify(updatedExams));
   };
 
   const formatDateTime = (dateTime) => {
@@ -109,7 +109,6 @@ const Calendar = () => {
           <br />
           <AnimatedLetters letterClass={letterClass} strArray={"Calendar".split("")} idx={15} />
         </h1>
-        <h2>Please note: If you've used our app before, remember to remove previous versions of your exam schedule from your calendar due to local storage.</h2>
         {selectedExams.length === 0 ? (
           <h2>No exams in your schedule.</h2>
         ) : (

@@ -49,7 +49,7 @@ const Calendar = () => {
           return [
             'BEGIN:VEVENT',
             `SUMMARY:${exam.course} - ${exam.exam_type}`,
-            `DESCRIPTION:Room: ${exam.room}, Building: ${exam.building}`,
+            `DESCRIPTION:Building: ${exam.building}\\nRoom: ${exam.room}\\nRows: ${exam.rows}\\nRow Start: ${exam.rowStart}\\nRow End: ${exam.rowEnd}`,
             `DTSTART:${formatDateTime(exam.exam_start_time)}`,
             `DTEND:${formatDateTime(exam.exam_end_time)}`,
             'LOCATION:Event Location',
@@ -88,7 +88,7 @@ const Calendar = () => {
       const calendarContent = [
         `text=${encodeURIComponent(`${exam.course} - ${exam.exam_type}`)}`,
         `dates=${startTime}/${endTime}`,
-        `details=${encodeURIComponent(`Room: ${exam.room}, Building: ${exam.building}`)}`,
+        `details=${encodeURIComponent(`Building: ${exam.building}, Room: ${exam.room}, Rows: ${exam.rows}, Row Start: ${exam.rowStart}, Row End: ${exam.rowEnd}`)}`,
         'location=Event Location',
       ].join('&');
   
@@ -109,7 +109,7 @@ const Calendar = () => {
           <br />
           <AnimatedLetters letterClass={letterClass} strArray={"Calendar".split("")} idx={15} />
         </h1>
-        <h2>Note: Building location and rows will be updated upon release of full exam schedule.</h2>
+        <h2>Please note: If you've used our app before, remember to remove previous versions of your exam schedule from your calendar due to local storage.</h2>
         {selectedExams.length === 0 ? (
           <h2>No exams in your schedule.</h2>
         ) : (
@@ -128,11 +128,11 @@ const Calendar = () => {
                       <th>Type</th>
                       <th>Start Time</th>
                       <th>End Time</th>
-                      {/* <th>Building</th>
+                      <th>Building</th>
                       <th>Room</th>
                       <th>Rows</th>
                       <th>Row Start</th>
-                      <th>Row End</th> */}
+                      <th>Row End</th>
                       <th>Actions</th>
                     </>
                   )}
@@ -149,11 +149,11 @@ const Calendar = () => {
                       <td>{exam.exam_type}</td>
                       <td>{exam.exam_start_time}</td>
                       <td>{exam.exam_end_time}</td>
-                      {/* <td>{exam.building}</td>
+                      <td>{exam.building}</td>
                       <td>{exam.room}</td>
                       <td>{exam.rows}</td>
                       <td>{exam.rowStart}</td>
-                      <td>{exam.rowEnd}</td> */}
+                      <td>{exam.rowEnd}</td>
                     </>
                   )}
                     <td>

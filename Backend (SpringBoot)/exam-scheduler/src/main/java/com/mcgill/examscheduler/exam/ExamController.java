@@ -29,6 +29,11 @@ public class ExamController {
         }
     }
 
+    @GetMapping("/multiple")
+    public List<Exam> getExamsByNames(@RequestParam("names") List<String> examNames) {
+        return examService.getExamsByNames(examNames);
+    }
+
     @PostMapping
     public ResponseEntity<Exam> addExam(@RequestBody Exam newExam) {
         Exam createdExam = examService.addExam(newExam);

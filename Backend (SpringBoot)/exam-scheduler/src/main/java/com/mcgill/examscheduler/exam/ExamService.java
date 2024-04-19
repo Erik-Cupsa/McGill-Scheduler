@@ -58,4 +58,15 @@ public class ExamService {
             examRepository.deleteByCourseAndSection(examKey.getCourse(), examKey.getSection());
         }
     }
+
+    public List<Exam> getExamsByNames(List<String> examNames) {
+        List<String> lowercaseExamNames = examNames.stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+
+        // Filter exams by class names provided in the list
+        return examRepository.findAll().stream()
+                .filter(exam -> lowercaseExamNames.contains(exam.getCourse().toLowerCase()))
+                .collect(Collectors.toList());
+    }
 }

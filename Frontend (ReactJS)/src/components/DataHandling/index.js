@@ -12,11 +12,18 @@ const DataHandling = () => {
   const [letterClass, setLetterClass] = useState("text-animate");
   const [searchQuery, setSearchQuery] = useState("");
   const isMobileView = window.innerWidth <= 1150;
-  const [addedExams, setAddedExams] = useState(new Set());
+  const [addedExams, setAddedExams] = useState(() => {
+    const storedCalendar = JSON.parse(sessionStorage.getItem('calendar')) || [];
+    const examKeys = storedCalendar.map(exam => exam.examKey);
+    return new Set(examKeys);
+  });
 
   useEffect(() => {
     const storedCalendar = JSON.parse(sessionStorage.getItem('calendar')) || [];
     setSelectedExams(storedCalendar);
+    
+    const examKeys = storedCalendar.map(exam => exam.examKey);
+    setAddedExams(new Set(examKeys));
 
     const params = new URLSearchParams(window.location.search);
     const className = params.get('name');
@@ -69,18 +76,18 @@ const DataHandling = () => {
   };
 
   const handleAddToCalendar = (exam) => {
-    const isDuplicate = selectedExams.some((selectedExam) => selectedExam.examKey === exam.examKey);
+    const storedCalendar = JSON.parse(sessionStorage.getItem('calendar')) || [];
+    const isAlreadyAdded = storedCalendar.some((selectedExam) => selectedExam.course === exam.course);
   
-    if (!isDuplicate) {
-      setSelectedExams((prevSelectedExams) => {
-        const updatedExams = [...prevSelectedExams, exam];
-  
-        sessionStorage.setItem('calendar', JSON.stringify(updatedExams));
-        setAddedExams((prevAddedExams) => new Set([...prevAddedExams, exam.examKey]));
-  
-        return updatedExams;
-      });
+    if (isAlreadyAdded) {
+      alert("Already added to calendar");
+      return;
     }
+    const updatedExams = [...storedCalendar, exam];
+    sessionStorage.setItem('calendar', JSON.stringify(updatedExams));
+  
+    setSelectedExams(updatedExams);
+    setAddedExams((prevAddedExams) => new Set([...prevAddedExams, exam.examKey]));
   };
 
   if (loading) {

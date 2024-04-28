@@ -4,7 +4,7 @@ import './index.scss';
 import AnimatedLetters from '../AnimatedLetters';
 import Loader from 'react-loaders';
 
-const DataHandling = () => {
+const MultiSelect = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [examData, setExamData] = useState([]);
@@ -26,14 +26,14 @@ const DataHandling = () => {
     setAddedExams(new Set(examKeys));
 
     const params = new URLSearchParams(window.location.search);
-    const className = params.get('name');
+    const className = params.get('names');
 
     const timer = setTimeout(() => {
       setLetterClass("text-animate-hover");
     }, 3000);
     if (className) {
       axios
-      .get(`http://localhost:8080/api/v1/exam?className=${encodeURIComponent(className)}`)
+      .get(`http://localhost:8080/api/v1/exam/multiple?names=${encodeURIComponent(className)}`)
         .then((response) => {
           setExamData(response.data);
           setLoading(false);
@@ -60,7 +60,7 @@ const DataHandling = () => {
     setLoading(true);
 
     setTimeout(() => {
-      window.location.href = `/data?name=${encodeURIComponent(searchQuery)}`;
+      window.location.href = `/multiselect?names=${encodeURIComponent(searchQuery)}`;
     }, 1);
   };
 
@@ -69,7 +69,7 @@ const DataHandling = () => {
       setLoading(true);
 
       setTimeout(() => {
-        window.location.href = `/data?name=${encodeURIComponent(searchQuery)}`;
+        window.location.href = `/multiselect?names=${encodeURIComponent(searchQuery)}`;
       }, 1);
     }
   };
@@ -212,4 +212,4 @@ const DataHandling = () => {
   );
 };
 
-export default DataHandling;
+export default MultiSelect;

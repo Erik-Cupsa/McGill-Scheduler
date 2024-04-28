@@ -7,6 +7,7 @@ const Search = () => {
   const [letterClass, setLetterClass] = useState("text-animate");
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isMultiSelect, setIsMultiSelect] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -26,7 +27,12 @@ const Search = () => {
     setLoading(true);
 
     setTimeout(() => {
-      window.location.href = `/data?name=${encodeURIComponent(searchQuery)}`;
+      if (isMultiSelect) {
+        window.location.href = `/multiselect?names=${encodeURIComponent(searchQuery)}`;
+      }
+      else{
+        window.location.href = `/data?name=${encodeURIComponent(searchQuery)}`;
+      }
     }, 1000);
   };
   const handleKeyPress = (event) => {
@@ -34,7 +40,12 @@ const Search = () => {
       setLoading(true);
 
       setTimeout(() => {
-        window.location.href = `/data?name=${encodeURIComponent(searchQuery)}`;
+        if (isMultiSelect) {
+          window.location.href = `/multiselect?names=${encodeURIComponent(searchQuery)}`;
+        }
+        else{
+          window.location.href = `/data?name=${encodeURIComponent(searchQuery)}`;
+        }
       }, 1000);
     }
   };
@@ -84,6 +95,9 @@ const Search = () => {
           </defs>
           </svg>
         </button>
+        <button onClick={() => setIsMultiSelect(!isMultiSelect)}>
+              {isMultiSelect ? "Disable Multiselect" : "Enable Multiselect"}
+          </button>
       </div>
       </h2>
       </div>

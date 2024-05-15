@@ -59,18 +59,18 @@ const MultiSelect = () => {
   const handleGoButtonClick = () => {
     setLoading(true);
 
-    setTimeout(() => {
+    if(searchQuery.indexOf(',') !== -1){
       window.location.href = `/multiselect?names=${encodeURIComponent(searchQuery)}`;
-    }, 1);
+    }
+
+    setTimeout(() => {
+      window.location.href = `/data?name=${encodeURIComponent(searchQuery)}`;
+    }, 1000);
   };
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      setLoading(true);
-
-      setTimeout(() => {
-        window.location.href = `/multiselect?names=${encodeURIComponent(searchQuery)}`;
-      }, 1);
+      handleGoButtonClick();
     }
   };
 

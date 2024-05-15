@@ -7,8 +7,6 @@ const Search = () => {
   const [letterClass, setLetterClass] = useState("text-animate");
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isMultiSelect, setIsMultiSelect] = useState(false);
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setLetterClass("text-animate-hover");
@@ -26,27 +24,17 @@ const Search = () => {
   const handleGoButtonClick = () => {
     setLoading(true);
 
+    if(searchQuery.indexOf(',') !== -1){
+      window.location.href = `/multiselect?names=${encodeURIComponent(searchQuery)}`;
+    }
+    
     setTimeout(() => {
-      if (isMultiSelect) {
-        window.location.href = `/multiselect?names=${encodeURIComponent(searchQuery)}`;
-      }
-      else{
-        window.location.href = `/data?name=${encodeURIComponent(searchQuery)}`;
-      }
+      window.location.href = `/data?name=${encodeURIComponent(searchQuery)}`;
     }, 1000);
   };
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      setLoading(true);
-
-      setTimeout(() => {
-        if (isMultiSelect) {
-          window.location.href = `/multiselect?names=${encodeURIComponent(searchQuery)}`;
-        }
-        else{
-          window.location.href = `/data?name=${encodeURIComponent(searchQuery)}`;
-        }
-      }, 1000);
+      handleGoButtonClick();
     }
   };
 
@@ -60,6 +48,8 @@ const Search = () => {
         <AnimatedLetters letterClass={letterClass} strArray={"Search".split("")} idx={15} />
       </h1>
       <h2>Find your exam schedule by entering the course code (e.g. ECSE 200). Feel free to search more broadly using the relevant code for your faculty if needed!
+        <br></br>
+        <br></br>Additionally, you have the option to search for multiple courses simultaneously. Just separate your search queries with a comma, for example: ECSE 200, ECSE 206.
         <br/><br/>To add an exam to your calendar, simply click the button. Once you are done, go to the Calendar section and export your personalized schedule!
       <div className="searchBox">
         <input
@@ -95,9 +85,6 @@ const Search = () => {
           </defs>
           </svg>
         </button>
-        <button onClick={() => setIsMultiSelect(!isMultiSelect)}>
-              {isMultiSelect ? "Disable Multiselect" : "Enable Multiselect"}
-          </button>
       </div>
       </h2>
       </div>

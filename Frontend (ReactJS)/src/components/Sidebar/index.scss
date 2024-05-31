@@ -87,6 +87,12 @@
                 margin-left: -28px;
             }
         }
+        a.history-link { 
+            &:after { 
+                content: "HISTORY"; 
+                margin-left: -28px;
+            }
+        }
         a.contact-link {
             &:after {
                 content: "CONTACT";

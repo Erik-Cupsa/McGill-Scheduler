@@ -1,0 +1,27 @@
+@media screen and (max-width: 1150px){
+    .data-page{
+      .text-zone{
+        top:20%;
+        width: 80%;
+        h1{
+            font-size: 40px;
+        }
+      }
+      .table-container {
+        margin: 20px auto;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(#212121, #212121) padding-box,
+                    linear-gradient(145deg, transparent 35%,#ff1a05, #fd9815) border-box;
+        border: 2px solid transparent;
+        overflow: auto;
+        max-height: 250px;
+  
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #555; 
+            background-color: #333;
+        }
+      }
+    }
+  }

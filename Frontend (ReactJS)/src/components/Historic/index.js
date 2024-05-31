@@ -4,36 +4,39 @@ import './index.scss';
 import AnimatedLetters from '../AnimatedLetters';
 import Loader from 'react-loaders';
 
-const DataHandling = () => {
+const Historic = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [examData, setExamData] = useState([]);
   const [selectedExams, setSelectedExams] = useState([]);
   const [letterClass, setLetterClass] = useState("text-animate");
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedYears, setSelectedYears] = useState([]);
   const isMobileView = window.innerWidth <= 1150;
-  const [addedExams, setAddedExams] = useState(() => {
-    const storedCalendar = JSON.parse(sessionStorage.getItem('calendar')) || [];
-    const examKeys = storedCalendar.map(exam => exam.examKey);
-    return new Set(examKeys);
-  });
+
+  const yearOptions = [
+    { label: "F2023", value: "f2023" },
+    { label: "W2023", value: "w2023" },
+    { label: "F2022", value: "f2022" },
+    { label: "W2024", value: "w2024" }
+  ];
 
   useEffect(() => {
-    const storedCalendar = JSON.parse(sessionStorage.getItem('calendar')) || [];
-    setSelectedExams(storedCalendar);
-    
-    const examKeys = storedCalendar.map(exam => exam.examKey);
-    setAddedExams(new Set(examKeys));
-
     const params = new URLSearchParams(window.location.search);
-    const className = params.get('name');
+    const className = params.get('names');
+    const years = params.get('years');
+
+    if (years) {
+      setSelectedYears(years.split(','));
+    }
 
     const timer = setTimeout(() => {
       setLetterClass("text-animate-hover");
     }, 3000);
-    if (className) {
+
+    if (className && years) {
       axios
-      .get(`https://mcgillexams-5294e99e879f.herokuapp.com/api/v1/exam?className=${encodeURIComponent(className)}`)
+        .get(`https://mcgillexams-5294e99e879f.herokuapp.com/api/v1/historic-exams/historic?names=${encodeURIComponent(className)}&years=${encodeURIComponent(years)}`)
         .then((response) => {
           setExamData(response.data);
           setLoading(false);
@@ -46,7 +49,6 @@ const DataHandling = () => {
       setLoading(false);
     }
 
-    
     return () => {
       clearTimeout(timer);
     };
@@ -56,15 +58,21 @@ const DataHandling = () => {
     setSearchQuery(event.target.value);
   };
 
+  const handleYearChange = (event) => {
+    const value = event.target.value;
+    setSelectedYears((prevSelectedYears) =>
+      prevSelectedYears.includes(value)
+        ? prevSelectedYears.filter((year) => year !== value)
+        : [...prevSelectedYears, value]
+    );
+  };
+
   const handleGoButtonClick = () => {
     setLoading(true);
-
-    if(searchQuery.indexOf(',') !== -1){
-      window.location.href = `/multiselect?names=${encodeURIComponent(searchQuery)}`;
-    }
+    const selectedYearsString = selectedYears.join(',');
 
     setTimeout(() => {
-      window.location.href = `/data?name=${encodeURIComponent(searchQuery)}`;
+      window.location.href = `/historical?names=${encodeURIComponent(searchQuery)}&years=${encodeURIComponent(selectedYearsString)}`;
     }, 1000);
   };
 
@@ -72,21 +80,6 @@ const DataHandling = () => {
     if (event.key === "Enter") {
       handleGoButtonClick();
     }
-  };
-
-  const handleAddToCalendar = (exam) => {
-    const storedCalendar = JSON.parse(sessionStorage.getItem('calendar')) || [];
-    const isAlreadyAdded = storedCalendar.some((selectedExam) => selectedExam.course === exam.course);
-  
-    if (isAlreadyAdded) {
-      alert("Already added to calendar");
-      return;
-    }
-    const updatedExams = [...storedCalendar, exam];
-    sessionStorage.setItem('calendar', JSON.stringify(updatedExams));
-  
-    setSelectedExams(updatedExams);
-    setAddedExams((prevAddedExams) => new Set([...prevAddedExams, exam.examKey]));
   };
 
   if (loading) {
@@ -104,10 +97,10 @@ const DataHandling = () => {
         <h1>
           <br />
           <br />
-          <AnimatedLetters letterClass={letterClass} strArray={"Results".split("")} idx={14} />
+          <AnimatedLetters letterClass={letterClass} strArray={"Historical Exams".split("")} idx={10} />
         </h1>
         {examData.length === 0 ? (
-          <h2>No results found for the given search, please try again!</h2>
+          <h2>Please search for one or more courses and select at least one year!</h2>
         ): (
           <div className="table-container">
           <table>
@@ -116,23 +109,22 @@ const DataHandling = () => {
                 {isMobileView ? (
                   <>
                     <th>Course</th>
-                    <th>Section</th>
-                    <th>Actions</th>
+                    <th>Year</th>
+                    <th>Exam Start Time</th>
+                    <th>Exam End Time</th>
                   </>
                 ): (
                   <>
                     <th>Course</th>
-                    <th>Section</th>
-                    <th>Course Title</th>
-                    <th>Exam Type</th>
+                    <th>Year</th>
                     <th>Exam Start Time</th>
                     <th>Exam End Time</th>
+                    <th>Exam Type</th>
                     <th>Building</th>
                     <th>Room</th>
                     <th>Rows</th>
                     <th>Row Start</th>
                     <th>Row End</th>
-                    <th>Actions</th>
                   </>
                 )}
               </tr>
@@ -141,27 +133,19 @@ const DataHandling = () => {
               {examData.map((exam) => (
                 <tr key={`${exam.course}-${exam.section}`}>
                   <td>{exam.course}</td>
-                  <td>{exam.section}</td>
+                  <td>{exam.year}</td>
+                  <td>{exam.exam_start_time}</td>
+                  <td>{exam.exam_end_time}</td>
                   {!isMobileView && (
                     <>
-                      <td>{exam.course_title}</td>
                       <td>{exam.exam_type}</td>
-                      <td>{exam.exam_start_time}</td>
-                      <td>{exam.exam_end_time}</td>
                       <td>{exam.building}</td>
                       <td>{exam.room}</td>
-                      <td>{exam.rows}</td>
-                      <td>{exam.rowStart}</td>
-                      <td>{exam.rowEnd}</td>
+                      <td>{exam.rows_from}</td>
+                      <td>{exam.row_start}</td>
+                      <td>{exam.row_end}</td>
                     </>
                   )}
-                  <td>
-                    <button onClick={() => handleAddToCalendar(exam)} disabled={addedExams.has(exam.examKey)}>
-                      <span class="shadow"></span>
-                      <span class="edge"></span>
-                      <span class="front text">{addedExams.has(exam.examKey) ? 'Added' : 'Add To Calendar'}</span>
-                    </button>
-                  </td>
                 </tr>
               ))}
             </tbody>
@@ -169,17 +153,17 @@ const DataHandling = () => {
         </div>
         )}
         <h2>
-          <div className="searchBox">
-            <input
-              class="searchInput"
-              type="text"
-              name=""
-              placeholder="Search for more exams"
-              value={searchQuery}
-              onChange={handleSearchChange}
-              onKeyPress={handleKeyPress}
-            />
-            <button class="searchButton" href="#" onClick={handleGoButtonClick}>
+          <div className="searchContainer">
+            <div className="searchBox">
+              <input
+                className="searchInput"
+                type="text"
+                placeholder="Search for more exams"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                onKeyPress={handleKeyPress}
+              />
+             <button class="searchButton" href="#" onClick={handleGoButtonClick}>
               <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
               <g clip-path="url(#clip0_2_17)">
               <g filter="url(#filter0_d_2_17)">
@@ -203,6 +187,22 @@ const DataHandling = () => {
               </defs>
               </svg>
             </button>
+            </div>
+            <br/>
+            <br/>
+            <div className="yearSelectBox">
+              {yearOptions.map((year) => (
+                <label key={year.value}>
+                  <input
+                    type="checkbox"
+                    value={year.value}
+                    checked={selectedYears.includes(year.value)}
+                    onChange={handleYearChange}
+                  />
+                  {year.label}
+                </label>
+              ))}
+            </div>
           </div>
         </h2>
       </div>
@@ -212,4 +212,4 @@ const DataHandling = () => {
   );
 };
 
-export default DataHandling;
+export default Historic;

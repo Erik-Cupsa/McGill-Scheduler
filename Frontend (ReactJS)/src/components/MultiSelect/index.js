@@ -33,7 +33,7 @@ const MultiSelect = () => {
     }, 3000);
     if (className) {
       axios
-      .get(`http://localhost:8080/api/v1/exam/multiple?names=${encodeURIComponent(className)}`)
+      .get(`https://mcgillexams-5294e99e879f.herokuapp.com/api/v1/exam/multiple?names=${encodeURIComponent(className)}`)
         .then((response) => {
           setExamData(response.data);
           setLoading(false);

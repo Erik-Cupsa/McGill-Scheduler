@@ -1,4 +1,3 @@
-import Loader from "react-loaders"
 import "./index.scss"
 import AnimatedLetters from "../AnimatedLetters" 
 import { useEffect, useRef, useState } from "react"
@@ -15,7 +14,7 @@ const Contact = () => {
     useEffect(() => {
         const timerId = setTimeout(() => {
           setLetterClass('text-animate-hover');
-        }, 3000);
+        }, 1);
       
         return () => {
           clearTimeout(timerId);
@@ -98,7 +97,6 @@ const Contact = () => {
                     </table>
                 </div>
             </div>
-            <Loader type="pacman" />
         </>
     )
 }

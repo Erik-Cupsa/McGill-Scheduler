@@ -32,13 +32,13 @@
             position: absolute; 
             margin-top: 18px; 
             left: 20px; 
-            animation: fadeIn 1s 1.7s backwards; 
+            animation: fadeIn 0.7s backwards; 
             opacity: 0.6; 
         }
     }
     h2 { 
       color: #fff;
-      animation: fadeIn 1s 1.8s backwards; 
+      animation: fadeIn 0.8s backwards; 
       font-weight: 400;
   }
   .table-container::-webkit-scrollbar {
@@ -54,14 +54,14 @@
     background-color: transparent;
   }
   .table-container {
-    animation: fadeIn 1s 1.8s backwards; 
+    animation: fadeIn 0.8s backwards; 
     margin: 20px auto;
     font-family: Arial, sans-serif;
     background: linear-gradient(#212121, #212121) padding-box,
                 linear-gradient(145deg, transparent 35%,#ff1a05, #fd9815) border-box;
     border: 2px solid transparent;
     overflow: auto;
-    max-height: 250px;
+    max-height: 450px;
 
     table {
         width: 100%;
@@ -207,8 +207,8 @@ button {
    }
 
    .button {
-    margin-top: 500px;
-    margin-left: 130px;
+    margin-top: 650px;
+    margin-left: 140px;
     --main-focus: #2d8cf0;
     --font-color: #dedede;
     --bg-color-sub: #222;
@@ -275,7 +275,7 @@ button {
 @media screen and (max-width: 1150px){
   .calendar-page{
     .text-zone{
-      top:20%;
+      top:25%;
       width: 80%;
     }
     h2{
@@ -287,8 +287,8 @@ button {
       background: linear-gradient(#212121, #212121) padding-box,
                   linear-gradient(145deg, transparent 35%,#ff1a05, #fd9815) border-box;
       border: 2px solid transparent;
-      overflow: auto;
-      max-height: 250px;
+      overflow: none;
+      max-height: 450px;
 
       table {
           width: 100%;
@@ -298,7 +298,7 @@ button {
       }
     }
     .button{
-      margin-top:450px;
+      margin-top:600px;
     }
   }
 }

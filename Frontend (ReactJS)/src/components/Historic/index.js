@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './index.scss';
 import AnimatedLetters from '../AnimatedLetters';
-import Loader from 'react-loaders';
 
 const Historic = () => {
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [examData, setExamData] = useState([]);
   const [selectedExams, setSelectedExams] = useState([]);
@@ -15,10 +13,10 @@ const Historic = () => {
   const isMobileView = window.innerWidth <= 1150;
 
   const yearOptions = [
+    { label: "W2024", value: "w2024" },
     { label: "F2023", value: "f2023" },
     { label: "W2023", value: "w2023" },
-    { label: "F2022", value: "f2022" },
-    { label: "W2024", value: "w2024" }
+    { label: "F2022", value: "f2022" }
   ];
 
   useEffect(() => {
@@ -32,21 +30,18 @@ const Historic = () => {
 
     const timer = setTimeout(() => {
       setLetterClass("text-animate-hover");
-    }, 3000);
+    }, 1);
 
     if (className && years) {
       axios
         .get(`https://mcgillexams-5294e99e879f.herokuapp.com/api/v1/historic-exams/historic?names=${encodeURIComponent(className)}&years=${encodeURIComponent(years)}`)
         .then((response) => {
           setExamData(response.data);
-          setLoading(false);
         })
         .catch((error) => {
           setError(error);
-          setLoading(false);
         });
     } else {
-      setLoading(false);
     }
 
     return () => {
@@ -68,12 +63,11 @@ const Historic = () => {
   };
 
   const handleGoButtonClick = () => {
-    setLoading(true);
     const selectedYearsString = selectedYears.join(',');
 
     setTimeout(() => {
       window.location.href = `/historical?names=${encodeURIComponent(searchQuery)}&years=${encodeURIComponent(selectedYearsString)}`;
-    }, 1000);
+    }, 1);
   };
 
   const handleKeyPress = (event) => {
@@ -82,9 +76,7 @@ const Historic = () => {
     }
   };
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+
 
   if (error) {
     return <p>Error: {error.message}</p>;
@@ -207,7 +199,6 @@ const Historic = () => {
         </h2>
       </div>
     </div>
-    <Loader type="pacman" />
     </>
   );
 };

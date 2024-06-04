@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './index.scss';
 import AnimatedLetters from '../AnimatedLetters';
-import Loader from 'react-loaders';
 
 const MultiSelect = () => {
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [examData, setExamData] = useState([]);
   const [selectedExams, setSelectedExams] = useState([]);
@@ -30,20 +28,17 @@ const MultiSelect = () => {
 
     const timer = setTimeout(() => {
       setLetterClass("text-animate-hover");
-    }, 3000);
+    }, 1);
     if (className) {
       axios
       .get(`https://mcgillexams-5294e99e879f.herokuapp.com/api/v1/exam/multiple?names=${encodeURIComponent(className)}`)
         .then((response) => {
           setExamData(response.data);
-          setLoading(false);
         })
         .catch((error) => {
           setError(error);
-          setLoading(false);
         });
     } else {
-      setLoading(false);
     }
 
     
@@ -57,7 +52,6 @@ const MultiSelect = () => {
   };
 
   const handleGoButtonClick = () => {
-    setLoading(true);
 
     if(searchQuery.indexOf(',') !== -1){
       window.location.href = `/multiselect?names=${encodeURIComponent(searchQuery)}`;
@@ -65,7 +59,7 @@ const MultiSelect = () => {
 
     setTimeout(() => {
       window.location.href = `/data?name=${encodeURIComponent(searchQuery)}`;
-    }, 1000);
+    }, 1);
   };
 
   const handleKeyPress = (event) => {
@@ -89,9 +83,10 @@ const MultiSelect = () => {
     setAddedExams((prevAddedExams) => new Set([...prevAddedExams, exam.examKey]));
   };
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  const handleCalendarButtonClick = () => {
+    window.location.href = "/calendar";
+  };
+
 
   if (error) {
     return <p>Error: {error.message}</p>;
@@ -204,10 +199,20 @@ const MultiSelect = () => {
               </svg>
             </button>
           </div>
+          <a className="button" style={{ "--clr": "#7808d0" }} href="#" onClick={handleCalendarButtonClick}>
+              <span className="button__icon-wrapper">
+                <svg width="10" className="button__icon-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 15">
+                  <path fill="currentColor" d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"></path>
+                </svg>
+                <svg className="button__icon-svg button__icon-svg--copy" xmlns="http://www.w3.org/2000/svg" width="10" fill="none" viewBox="0 0 14 15">
+                  <path fill="currentColor" d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"></path>
+                </svg>
+              </span>
+              Go to Calendar
+            </a>
         </h2>
       </div>
     </div>
-    <Loader type="pacman" />
     </>
   );
 };

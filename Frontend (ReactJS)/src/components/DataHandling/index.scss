@@ -30,13 +30,67 @@
           position: absolute; 
           margin-top: 18px; 
           left: 20px; 
-          animation: fadeIn 1s 1.7s backwards; 
+          animation: fadeIn 0.7s backwards; 
           opacity: 0.6; 
       }
     }
     h2 { 
-      animation: fadeIn 1s 1.8s backwards; 
+      animation: fadeIn 0.8s backwards; 
       color: #fff;
+
+      .button {
+        line-height: 1;
+        text-decoration: none;
+        gap: .75rem;
+        background-color: var(--gradient-2, linear-gradient(90deg, #ff4000 30%, #fd9815 80%));
+        color: #fff;
+        border-radius: 10rem;
+        font-weight: 600;
+        padding: .75rem 1.5rem;
+        padding-left: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: background-color .3s;
+        margin-top: 50px; 
+        margin-left: 0px;
+      }
+      
+      .button__icon-wrapper {
+        flex-shrink: 0;
+        width: 25px;
+        height: 25px;
+        position: relative;
+        color: #ff4000;
+        background-color: #fff;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+      }
+      
+      .button:hover {
+        background-color: #ff4000;
+      }
+      
+      .button:hover .button__icon-wrapper {
+        color: #fd9815;
+      }
+      
+      .button__icon-svg--copy {
+        position: absolute;
+        transform: translate(-150%, 150%);
+      }
+      
+      .button:hover .button__icon-svg:first-child {
+        transition: transform .3s ease-in-out;
+        transform: translate(150%, -150%);
+      }
+  
+      .button:hover .button__icon-svg--copy {
+        transition: transform .3s ease-in-out .1s;
+        transform: translate(0);
+      }
   }
   .searchBox {
     display: flex;
@@ -47,22 +101,23 @@
     background: #2f3640;
     border-radius: 50px;
     position: relative;
-    margin-top: 50px;
-    margin-left: -10px;
+    margin-top: 50px; 
+    margin-left: 0; 
   }
 
-.searchButton {
-  color: white;
-  position: absolute;
-  right: 8px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: var(--gradient-2, linear-gradient(90deg, #ff4000 30%, #fd9815 80%));
-  border: 0;
-  display: inline-block;
-  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
-}
+  .searchButton {
+    color: white;
+    position: absolute;
+    right: 8px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--gradient-2, linear-gradient(90deg, #ff4000 30%, #fd9815 80%));
+    border: 0;
+    display: inline-block;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  }
+
 
 button:hover {
   color: #fff;
@@ -97,7 +152,7 @@ button:active {
       background-color: transparent;
     }
     .table-container {
-      animation: fadeIn 1s 1.8s backwards; 
+      animation: fadeIn 0.8s backwards; 
       margin: 20px auto;
       font-family: Arial, sans-serif;
       background: linear-gradient(#212121, #212121) padding-box,
@@ -138,7 +193,7 @@ button:active {
 @media screen and (max-width: 1150px){
   .data-page{
     .text-zone{
-      top:20%;
+      margin-top: 60px;
       width: 80%;
     }
     .table-container {

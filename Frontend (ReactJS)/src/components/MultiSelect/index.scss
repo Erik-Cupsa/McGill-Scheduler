@@ -30,12 +30,12 @@
             position: absolute; 
             margin-top: 18px; 
             left: 20px; 
-            animation: fadeIn 1s 1.7s backwards; 
+            animation: fadeIn 0.7s backwards; 
             opacity: 0.6; 
         }
       }
       h2 { 
-        animation: fadeIn 1s 1.8s backwards; 
+        animation: fadeIn 0.8s backwards; 
         color: #fff;
     }
     .searchBox {
@@ -97,7 +97,7 @@
         background-color: transparent;
       }
       .table-container {
-        animation: fadeIn 1s 1.8s backwards; 
+        animation: fadeIn 0.8s backwards; 
         margin: 20px auto;
         font-family: Arial, sans-serif;
         background: linear-gradient(#212121, #212121) padding-box,

@@ -3,7 +3,7 @@
     position: absolute; 
     align-content: center;
     left: 5%; 
-    top: 35%; 
+    margin-top: 90px; 
     transform: translateY(-50%); 
     max-height: 90%; 
     display: absolute;
@@ -38,6 +38,12 @@
       animation: fadeIn 0.8s backwards; 
       color: #fff;
 
+      .button-container{
+        margin-top: -50px;
+        .search{
+          width: 500px;
+        }
+      }
       .button {
         line-height: 1;
         text-decoration: none;
@@ -190,9 +196,9 @@ button:active {
     }
 }
 
-@media screen and (max-width: 1150px){
-  .data-page{
-    .text-zone{
+@media screen and (max-width: 1150px) {
+  .data-page {
+    .text-zone {
       margin-top: 60px;
       width: 80%;
     }
@@ -206,10 +212,32 @@ button:active {
       max-height: 250px;
 
       table {
-          width: 100%;
-          border-collapse: collapse;
-          border: 1px solid #555; 
-          background-color: #333;
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #555; 
+        background-color: #333;
+      }
+    }
+
+    h2 {
+      .button{
+        width:70px;
+        font-size: 11px;
+      }
+      .searchBox{
+        max-width: 240px;
+      }
+      .searchInput{
+        font-size: 13px;
+      }
+      .searchButton{
+        width: 35px;
+        height: 35px;
+      }
+      .button-container {
+        .search {
+          width: 240px;
+        }
       }
     }
   }

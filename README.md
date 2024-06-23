@@ -4,7 +4,7 @@ This project is a comprehensive exam scheduler designed for McGill University, b
 
 ## Visit The Site
 
-Feel free to check out the project [project here!](https://mcgillscheduler.vercel.app/)
+Feel free to check out the [project here!](https://mcgillscheduler.vercel.app/)
 
 <img width="1301" alt="Screenshot 2024-02-09 at 4 19 56 PM" src="https://github.com/Erik-Cupsa/McGill-Scheduler/assets/86483911/3d1bdbe8-8df7-4275-99b5-81bd564aed23">
 
